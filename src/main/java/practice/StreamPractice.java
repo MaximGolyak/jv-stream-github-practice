@@ -29,7 +29,7 @@ public class StreamPractice {
     }
 
     /**
-     * Дан список целых чисел ); нужно вычесть 1 из каждого элемента,
+     * Дан список целых чисел; нужно вычесть 1 из каждого элемента,
      * находящегося на нечетной позиции (имеющего нечетный индекс). Затем следует
      * вернуть среднее арифметическое всех нечетных чисел или выбросить
      * исключение `NoSuchElementException`.
@@ -98,7 +98,7 @@ public class StreamPractice {
      */
     public List<String> getCatsNames(List<Person> peopleList, int femaleAge) {
         return peopleList.stream()
-                .filter(w -> (w.getSex() == Person.Sex.WOMAN
+                .filter(w -> (w.getSex().equals(Person.Sex.WOMAN)
                 && w.getAge() >= femaleAge))
                 .flatMap(w -> w.getCats().stream())
                 .map(Cat::getName)
