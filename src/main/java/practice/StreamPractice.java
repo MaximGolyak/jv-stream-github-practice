@@ -1,12 +1,10 @@
 package practice;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import model.Candidate;
 import model.Cat;
 import model.Person;
@@ -31,16 +29,14 @@ public class StreamPractice {
     }
 
     /**
-     * Дан список целых чисел (`List<Integer>`); нужно вычесть 1 из каждого элемента,
+     * Дан список целых чисел ); нужно вычесть 1 из каждого элемента,
      * находящегося на нечетной позиции (имеющего нечетный индекс). Затем следует
      * вернуть среднее арифметическое всех нечетных чисел или выбросить
      * исключение `NoSuchElementException`.
      */
     public Double getOddNumsAverage(List<Integer> numbers) {
         return IntStream.range(0,numbers.size())
-                .filter(i -> i % 2 != 0)
-                .map(i -> numbers.get(i)) //.map(numbers::get)
-                .map(number -> number - 1)
+                .map(i -> i % 2 != 0 ? numbers.get(i) - 1 : numbers.get(i))
                 .filter(i -> i % 2 != 0)
                 .average()
                 .orElseThrow(NoSuchElementException::new);
@@ -136,6 +132,11 @@ public class StreamPractice {
      * классе `CandidateValidator`.
      */
     public List<String> validateCandidates(List<Candidate> candidates) {
-        return Collections.emptyList();
+        CandidateValidator candidateValidator = new CandidateValidator();
+        return candidates.stream()
+                .filter(candidateValidator)
+                .map(Candidate::getName)
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
